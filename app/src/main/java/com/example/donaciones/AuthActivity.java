@@ -3,71 +3,126 @@ package com.example.donaciones;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
-
-import com.firebase.ui.auth.AuthUI;
+import android.widget.Button;
+import com.google.firebase.auth.AuthResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
-import java.util.Arrays;
-import java.util.List;
+public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
+    private EditText emailEt;
+    private EditText passEt;
+    private ProgressDialog progressDialog;
+    private FirebaseAuth firebaseAuth;
+    private Button btnlogin;
 
-public class AuthActivity extends AppCompatActivity {
-    FirebaseAuth mfirebaseAuth;
-    FirebaseAuth.AuthStateListener mAuthListener;
-
-    public static final int REQUEST_CODE = 1234;
-    List<AuthUI.IdpConfig> provider= (List<AuthUI.IdpConfig>) Arrays.asList(
-            new AuthUI.IdpConfig.FacebookBuilder().build(),
-            new AuthUI.IdpConfig.GoogleBuilder().build(),
-            new AuthUI.IdpConfig.EmailBuilder().build()
-    );
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
+        firebaseAuth = FirebaseAuth.getInstance();
+        emailEt = (EditText) findViewById(R.id.emailEt);
+        passEt =(EditText) findViewById(R.id.passEt);
+        Button btnSignup = (Button) findViewById(R.id.btnLogout);
+        Button btnlogin = (Button) findViewById(R.id.btnLogin);
+        progressDialog = new ProgressDialog(this);
+        btnSignup.setOnClickListener(this);
+        btnlogin.setOnClickListener(this);
+    }
+    private void registrarUsuario(){
+        String email = emailEt.getText().toString().trim();
+        String password = passEt.getText().toString().trim();
+        System.out.println(email+password);
+        if(TextUtils.isEmpty(email)){
+            Toast.makeText(this, "Ingrese un Email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(password)){
+            Toast.makeText(this, "Ingrese una contraseña", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        progressDialog.setMessage("Realizando registro...");
+        progressDialog.show();
 
-        mfirebaseAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Toast.makeText(AuthActivity.this, "Se inicio sesión", Toast.LENGTH_SHORT).show();
-                } else {
-                    startActivityForResult(AuthUI.getInstance()
-                            .createSignInIntentBuilder().setAvailableProviders(provider)
-                            .setIsSmartLockEnabled(false).build(), REQUEST_CODE);
-                }
-            }
-        };
+        //crear usuario
+        firebaseAuth.createUserWithEmailAndPassword(email,password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(AuthActivity.this,"Se ha registrado "+email+" correctamente", Toast.LENGTH_SHORT).show();
+                        }else{
+                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                Toast.makeText(AuthActivity.this,"El usuario ya existe", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(AuthActivity.this, "Error en el registro", Toast.LENGTH_SHORT).show();
+                            }
+                            }
+                        progressDialog.dismiss();
+                    }
+                });
+    }
 
+    private void logear() {
+        String email = emailEt.getText().toString().trim();
+        String password = passEt.getText().toString().trim();
+        System.out.println(email+password);
+        if(TextUtils.isEmpty(email)){
+            Toast.makeText(this, "Ingrese un Email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(password)){
+            Toast.makeText(this, "Ingrese una contraseña", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        progressDialog.setMessage("Realizando registro...");
+        progressDialog.show();
+
+        //logear usuario
+        firebaseAuth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(AuthActivity.this,"Bienvenido: "+email, Toast.LENGTH_SHORT).show();
+                            Intent intention = new Intent(getApplication(), HomeActivity.class);
+                            intention.putExtra(HomeActivity.user, email);
+                            startActivity(intention);
+                            Intent intention2 = new Intent(getApplication(), LogoutFragment.class);
+                            intention2.putExtra(LogoutFragment.user, email);
+                            startActivity(intention2);
+
+                        }else{
+                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                Toast.makeText(AuthActivity.this,"El usuario ya existe", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(AuthActivity.this, "Error en el registro", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        progressDialog.dismiss();
+                    }
+                });
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        mfirebaseAuth.addAuthStateListener(mAuthListener);
-    }
+    public void onClick(View v) {
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mfirebaseAuth.removeAuthStateListener(mAuthListener);
-    }
+        switch (v.getId()){
+            case R.id.btnLogout:
+                registrarUsuario();
+                break;
+            case R.id.btnLogin:
+                logear();
+                break;
+        }
 
-    public void cerrarsesion(View view) {
-        AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(AuthActivity.this, "sesion cerrada", Toast.LENGTH_SHORT).show();
 
-            }
-        });
     }
 }

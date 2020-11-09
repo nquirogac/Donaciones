@@ -16,5 +16,9 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/logoutFragment"
+            android:icon="@android:drawable/ic_lock_power_off"
+            android:title="@string/menu_logout" />
     </group>
 </menu>

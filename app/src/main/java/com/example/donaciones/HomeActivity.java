@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class HomeActivity extends AppCompatActivity {
-
+    public static String user="names";
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override

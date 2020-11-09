@@ -22,4 +22,9 @@
         android:name="com.example.donaciones.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/logoutFragment"
+        android:name="com.example.donaciones.LogoutFragment"
+        android:label="fragment_lognout"
+        tools:layout="@layout/fragment_logout" />
 </navigation>
