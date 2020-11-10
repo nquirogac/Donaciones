@@ -56,7 +56,9 @@
                 android:layout_width="82dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Registrarse" />
+                android:backgroundTint="#F5EA14"
+                android:text="Registrarse"
+                android:textColor="#101010" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -68,7 +70,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Ingresar" />
+                android:backgroundTint="#4BDBB7"
+                android:text="Ingresar"
+                android:textColor="#100F0F" />
 
         </LinearLayout>
 

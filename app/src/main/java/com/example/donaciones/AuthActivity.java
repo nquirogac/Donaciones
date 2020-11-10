@@ -72,7 +72,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                             map.put("password", password);
 
                             String id = firebaseAuth.getCurrentUser().getUid();
-                            mDatabase.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            mDatabase.child("Users").child("Donantes").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task2) {
                                     if(task2.isSuccessful()){

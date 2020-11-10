@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:foregroundTint="#FF5722"
     tools:context=".ui.home.HomeFragment">
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
@@ -71,20 +72,29 @@
         android:id="@+id/btndonar"
         android:layout_width="217dp"
         android:layout_height="78dp"
+        android:background="#2196F3"
+        android:backgroundTint="#F5EA14"
+        android:backgroundTintMode="src_atop"
+        android:foregroundTint="#F5EA14"
+        android:onClick="irAFundaciones"
         android:text="Donar en especie"
+        android:textColor="#F3EEEE"
         app:layout_constraintBottom_toTopOf="@+id/btndonartiempo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.556"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.957" />
+        app:layout_constraintVertical_bias="0.957"
+        app:strokeColor="#F5EA14" />
 
     <Button
         android:id="@+id/btndonartiempo"
         android:layout_width="220dp"
         android:layout_height="96dp"
         android:layout_marginBottom="44dp"
+        android:backgroundTint="#F5EA14"
         android:text="Donar mi tiempo y transporte"
+        android:textColor="#0E0E0E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.549"
