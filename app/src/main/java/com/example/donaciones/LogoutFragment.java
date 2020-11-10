@@ -1,5 +1,6 @@
 package com.example.donaciones;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class LogoutFragment extends Fragment {
 public static String user="name";
+private FirebaseAuth firebaseAuth;
 
 TextView txtuser;
 
@@ -72,23 +74,15 @@ TextView txtuser;
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-        txtuser = (TextView) txtuser.findViewById(R.id.emailTv);
-        //String user = getRetainInstance().getExtraString("name");
-        txtuser.setText(user);
-        //Button btnlogout = (Button).findViewById(R.id.btnLogout);
         }
     }
 
+    public void logout(View v){
+        Intent salir = new Intent(getActivity(), AuthActivity.class);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_logout, container, false);
+        startActivity(salir);
+        firebaseAuth.signOut();
     }
-
-
-
 
 
 }

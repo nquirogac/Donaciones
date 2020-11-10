@@ -16,14 +16,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText emailEt;
     private EditText passEt;
     private ProgressDialog progressDialog;
-    private FirebaseAuth firebaseAuth;
+    FirebaseAuth firebaseAuth;
     private Button btnlogin;
-
+    //private FirebaseDatabase firebaseDatabase;
+    DatabaseReference mDatabase;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
@@ -35,6 +41,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog = new ProgressDialog(this);
         btnSignup.setOnClickListener(this);
         btnlogin.setOnClickListener(this);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
     private void registrarUsuario(){
         String email = emailEt.getText().toString().trim();
@@ -58,6 +65,24 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(AuthActivity.this,"Se ha registrado "+email+" correctamente", Toast.LENGTH_SHORT).show();
+
+                            Map<String, Object> map = new HashMap<>();
+
+                            map.put("email", email);
+                            map.put("password", password);
+
+                            String id = firebaseAuth.getCurrentUser().getUid();
+                            mDatabase.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task2) {
+                                    if(task2.isSuccessful()){
+                                        Intent intention = new Intent(getApplication(), HomeActivity.class);
+                                        startActivity(intention);finish();
+                                    }else{
+                                        Toast.makeText(AuthActivity.this, "No se pudieron crear los datos correctamente", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                         }else{
                             if(task.getException() instanceof FirebaseAuthUserCollisionException){
                                 Toast.makeText(AuthActivity.this,"El usuario ya existe", Toast.LENGTH_SHORT).show();
@@ -73,7 +98,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     private void logear() {
         String email = emailEt.getText().toString().trim();
         String password = passEt.getText().toString().trim();
-        System.out.println(email+password);
+
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Ingrese un Email", Toast.LENGTH_SHORT).show();
             return;
@@ -82,7 +107,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Ingrese una contraseña", Toast.LENGTH_SHORT).show();
             return;
         }
-        progressDialog.setMessage("Realizando registro...");
+        progressDialog.setMessage("Iniciando sesión...");
         progressDialog.show();
 
         //logear usuario
@@ -93,11 +118,9 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                         if(task.isSuccessful()){
                             Toast.makeText(AuthActivity.this,"Bienvenido: "+email, Toast.LENGTH_SHORT).show();
                             Intent intention = new Intent(getApplication(), HomeActivity.class);
-                            intention.putExtra(HomeActivity.user, email);
+
                             startActivity(intention);
-                            Intent intention2 = new Intent(getApplication(), LogoutFragment.class);
-                            intention2.putExtra(LogoutFragment.user, email);
-                            startActivity(intention2);
+
 
                         }else{
                             if(task.getException() instanceof FirebaseAuthUserCollisionException){
