@@ -6,7 +6,7 @@ public class Fundacion {
     private String nombre;
     private String tipodonacion;
     //private Image icono;
-    //private Donacion[] historialDon;
+    private Donacion historialDon;
     private String contacto;
     private double longitud;
     private double latitud;
@@ -61,7 +61,11 @@ public class Fundacion {
         this.contacto = contacto;
     }
 
-    public void agregarBaseDeDatos(){
+    public void recibirDonacion(){
+
+    }
+
+    public void cagarDatos(){
 
     }
 }
