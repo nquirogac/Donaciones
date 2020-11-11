@@ -1,4 +1,4 @@
-package com.example.donaciones;
+package com.example.donaciones.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
+
+import com.example.donaciones.AuthActivity;
+import com.example.donaciones.R;
 import com.google.firebase.auth.AuthResult;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;

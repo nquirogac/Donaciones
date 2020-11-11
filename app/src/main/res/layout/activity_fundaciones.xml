@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#3E0808"
-    tools:context=".FundacionesActivity">
+    tools:context=".Fundaciones.FundacionesActivity">
 
     <LinearLayout
         android:layout_width="385dp"
@@ -101,7 +101,7 @@
                 app:srcCompat="@mipmap/danar_libros" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btnDonarL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="60dp"
@@ -151,12 +151,16 @@
                     app:srcCompat="@mipmap/banco_de_ropa" />
 
                 <Button
-                    android:id="@+id/button6"
+                    android:id="@+id/btnDonarR"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Button"
-                    tools:layout_editor_absoluteX="241dp"
-                    tools:layout_editor_absoluteY="129dp" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.789"
+                    app:layout_constraintStart_toStartOf="@+id/imageFilterView5"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.788" />
 
                 <TextView
                     android:id="@+id/textView5"

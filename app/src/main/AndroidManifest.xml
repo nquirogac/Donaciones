@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Donaciones">
-        <activity android:name=".FundacionesActivity"></activity>
+        <activity android:name=".RopaActivity"></activity>
+        <activity android:name=".Fundaciones.LibrosActivity" />
+        <activity android:name=".Fundaciones.BancoAlimentosActivity" />
+        <activity android:name=".Fundaciones.FundacionesActivity" />
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"

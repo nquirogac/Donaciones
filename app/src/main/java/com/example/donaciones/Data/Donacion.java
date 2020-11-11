@@ -1,5 +1,9 @@
 package com.example.donaciones.Data;
 
-public class Donacion {
+import java.util.Date;
 
+public class Donacion {
+    private String tipoDonacion;
+    private Date fecha;
+    private  String especificaciones;
 }

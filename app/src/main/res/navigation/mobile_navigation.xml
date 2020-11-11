@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/logoutFragment"
-        android:name="com.example.donaciones.LogoutFragment"
+        android:name="com.example.donaciones.ui.LogoutFragment"
         android:label="fragment_lognout"
         tools:layout="@layout/fragment_logout" />
 </navigation>

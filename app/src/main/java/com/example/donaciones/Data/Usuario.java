@@ -10,7 +10,7 @@ public class Usuario {
         this.nombre = nombre;
         this.email = email;
         this.password =password;
-        this.historialDon = historialDon;
+        //this.historialDon = historialDon;
     }
 
     public String getNombre() {
