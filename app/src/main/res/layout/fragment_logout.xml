@@ -41,7 +41,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnLogout"
+                android:id="@+id/btnRegistro"
                 android:layout_width="336dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

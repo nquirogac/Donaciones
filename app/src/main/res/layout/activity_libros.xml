@@ -15,8 +15,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="408dp"
-            android:layout_height="158dp"
+            android:layout_width="426dp"
+            android:layout_height="157dp"
             android:background="#F5EA14"
             android:backgroundTint="#F5EA14"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,39 +39,25 @@
             android:id="@+id/editTextTextMultiLine"
             android:layout_width="322dp"
             android:layout_height="64dp"
-            android:layout_marginTop="148dp"
+            android:layout_marginTop="128dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="Especificaciones de la donacion"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.225"
+            app:layout_constraintHorizontal_bias="0.315"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView6" />
 
-        <EditText
-            android:id="@+id/txtdonacion"
-            android:layout_width="324dp"
-            android:layout_height="61dp"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Donación"
-            android:textColor="#737171"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.26"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
         <Spinner
             android:id="@+id/opTransporte"
-            android:layout_width="326dp"
-            android:layout_height="63dp"
-            android:layout_marginTop="16dp"
-            android:background="#E6DC85"
-            android:backgroundTint="#16F4E244"
+            android:layout_width="328dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="8dp"
+            android:background="#FFFFFF"
+            android:backgroundTint="#16F4F4F2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.238"
+            app:layout_constraintHorizontal_bias="0.337"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -93,12 +79,12 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Que tipo de libros desea donar:"
+            android:layout_marginTop="8dp"
+            android:text="Que tipo de productos desea donar:"
             android:textColor="#191818"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.17"
+            app:layout_constraintHorizontal_bias="0.217"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -107,24 +93,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Describa la cantidad de productos"
+            android:text="Describa la cantidad de productos:"
             android:textColor="#050505"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.169"
+            app:layout_constraintHorizontal_bias="0.205"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="72dp"
             android:text="Escoja una opción de transporte"
             android:textColor="#100F0F"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.151"
+            app:layout_constraintHorizontal_bias="0.179"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/editTextTextMultiLine" />
 
@@ -132,12 +118,26 @@
             android:id="@+id/button2"
             android:layout_width="277dp"
             android:layout_height="67dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="16dp"
             android:text="Proceder con la donación"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.38"
+            app:layout_constraintHorizontal_bias="0.481"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/txtDonacionLibros"
+            android:layout_width="321dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Donación"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.301"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

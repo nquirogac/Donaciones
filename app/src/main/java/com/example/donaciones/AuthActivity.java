@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Button;
+
+import com.google.android.gms.common.util.JsonUtils;
 import com.google.firebase.auth.AuthResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,12 +21,18 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText emailEt;
     private EditText passEt;
+    private EditText nombreEt;
+    private EditText telefonoEt;
+    private EditText email2Et;
+    private EditText pass2Et;
     private ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
     private Button btnlogin;
@@ -36,17 +44,32 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         firebaseAuth = FirebaseAuth.getInstance();
         emailEt = (EditText) findViewById(R.id.emailEt);
         passEt =(EditText) findViewById(R.id.passEt);
-        Button btnSignup = (Button) findViewById(R.id.btnLogout);
+        nombreEt = (EditText) findViewById(R.id.nombreEt);
+        telefonoEt =(EditText) findViewById(R.id.telefonoEt);
+        email2Et = (EditText) findViewById(R.id.email2Et);
+        pass2Et =(EditText) findViewById(R.id.pass2Et);
+        Button btnSignup = (Button) findViewById(R.id.btnRegistro);
         Button btnlogin = (Button) findViewById(R.id.btnLogin);
         progressDialog = new ProgressDialog(this);
-        btnSignup.setOnClickListener(this);
-        btnlogin.setOnClickListener(this);
+        btnSignup.setOnClickListener(this::onClick);
+        btnlogin.setOnClickListener(this::onClick);
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
     private void registrarUsuario(){
+        String nombre = nombreEt.getText().toString().trim();
+        String telefono = telefonoEt.getText().toString().trim();
         String email = emailEt.getText().toString().trim();
         String password = passEt.getText().toString().trim();
+
         System.out.println(email+password);
+        if(TextUtils.isEmpty(nombre)){
+            Toast.makeText(this, "Ingrese su nombre", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(telefono)){
+            Toast.makeText(this, "Ingrese su número de telefono", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Ingrese un Email", Toast.LENGTH_SHORT).show();
             return;
@@ -70,6 +93,8 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
                             map.put("email", email);
                             map.put("password", password);
+                            //map.put("nombre", nombre);
+                            //map.put("telefono", telefono);
 
                             String id = firebaseAuth.getCurrentUser().getUid();
                             mDatabase.child("Users").child("Donantes").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -96,14 +121,14 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void logear() {
-        String email = emailEt.getText().toString().trim();
-        String password = passEt.getText().toString().trim();
+        String email2 = email2Et.getText().toString().trim();
+        String password2 = pass2Et.getText().toString().trim();
 
-        if(TextUtils.isEmpty(email)){
+        if(TextUtils.isEmpty(email2)){
             Toast.makeText(this, "Ingrese un Email", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(password)){
+        if(TextUtils.isEmpty(password2)){
             Toast.makeText(this, "Ingrese una contraseña", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -111,12 +136,13 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog.show();
 
         //logear usuario
-        firebaseAuth.signInWithEmailAndPassword(email,password)
+        firebaseAuth.signInWithEmailAndPassword(email2,password2)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        System.out.println("1111");
                         if(task.isSuccessful()){
-                            Toast.makeText(AuthActivity.this,"Bienvenido: "+email, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AuthActivity.this,"Bienvenido: "+email2, Toast.LENGTH_SHORT).show();
                             Intent intention = new Intent(getApplication(), HomeActivity.class);
 
                             startActivity(intention);
@@ -138,14 +164,12 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()){
-            case R.id.btnLogout:
+            case R.id.btnRegistro:
                 registrarUsuario();
                 break;
             case R.id.btnLogin:
                 logear();
                 break;
         }
-
-
     }
 }

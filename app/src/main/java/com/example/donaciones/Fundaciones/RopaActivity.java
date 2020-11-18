@@ -1,8 +1,10 @@
-package com.example.donaciones;
+package com.example.donaciones.Fundaciones;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.donaciones.R;
 
 public class RopaActivity extends AppCompatActivity {
 

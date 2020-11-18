@@ -8,8 +8,8 @@
     tools:context=".AuthActivity">
 
     <LinearLayout
-        android:layout_width="339dp"
-        android:layout_height="471dp"
+        android:layout_width="352dp"
+        android:layout_height="515dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -23,12 +23,40 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
+            android:id="@+id/nombreEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nombre completo"
+            android:inputType="textPersonName" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
+        <EditText
+            android:id="@+id/telefonoEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Número de celular"
+            android:inputType="phone" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
+        <EditText
             android:id="@+id/emailEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
 
         <EditText
             android:id="@+id/passEt"
@@ -38,22 +66,14 @@
             android:hint="Contraseña"
             android:inputType="textPassword" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="12dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="82dp"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnLogout"
-                android:layout_width="82dp"
+                android:id="@+id/btnRegistro"
+                android:layout_width="334dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="#F5EA14"
@@ -65,6 +85,35 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/email2Et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/pass2Et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="356dp"
+            android:layout_height="299dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
@@ -73,7 +122,6 @@
                 android:backgroundTint="#4BDBB7"
                 android:text="Ingresar"
                 android:textColor="#100F0F" />
-
         </LinearLayout>
 
     </LinearLayout>

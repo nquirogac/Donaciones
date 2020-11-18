@@ -8,28 +8,31 @@
     tools:context=".Fundaciones.FundacionesActivity">
 
     <LinearLayout
-        android:layout_width="385dp"
-        android:layout_height="630dp"
+        android:id="@+id/linearLayout4"
+        android:layout_width="357dp"
+        android:layout_height="604dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="5dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.84000003">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_height="196dp"
+            android:layout_height="177dp"
             android:background="#4BDBB7">
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="152dp"
-                android:layout_height="138dp"
+                android:layout_width="140dp"
+                android:layout_height="115dp"
                 android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,34 +50,44 @@
                 android:text="Banco de alimentos"
                 android:textColor="#131313"
                 android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/imageView5"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.41"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btnDonarBA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="68dp"
+                android:layout_width="146dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="28dp"
                 android:text="Donar!"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.918" />
+                app:layout_constraintVertical_bias="0.992" />
 
             <TextView
                 android:id="@+id/infoBA"
-                android:layout_width="123dp"
-                android:layout_height="78dp"
-                android:text="text"
+                android:layout_width="160dp"
+                android:layout_height="45dp"
+                android:text="Donaciones de alimentos aptos para el consumo humano o productos de aseo."
                 android:textColor="#0B0A0A"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/btnDonarBA"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.614"
+                app:layout_constraintHorizontal_bias="0.39"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.816" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btninfo1"
+                android:layout_width="147dp"
+                android:layout_height="39dp"
+                android:layout_marginStart="28dp"
+                android:text="ver mas info."
+                app:layout_constraintBottom_toTopOf="@+id/btnDonarBA"
+                app:layout_constraintStart_toEndOf="@+id/imageView5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Space
@@ -84,7 +97,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frame3"
             android:layout_width="match_parent"
-            android:layout_height="204dp"
+            android:layout_height="186dp"
             android:background="#F5EA14"
             android:backgroundTint="#F5EA14">
 
@@ -94,22 +107,23 @@
                 android:layout_height="72dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.073"
+                app:layout_constraintHorizontal_bias="0.03"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.504"
+                app:layout_constraintVertical_bias="0.614"
                 app:srcCompat="@mipmap/danar_libros" />
 
             <Button
                 android:id="@+id/btnDonarL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="60dp"
-                android:text="Button"
+                android:layout_width="147dp"
+                android:layout_height="39dp"
+                android:text="Donar!"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.869"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.794" />
+                app:layout_constraintVertical_bias="0.96" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -120,10 +134,32 @@
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/imageFilterView3"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.122"
+                app:layout_constraintHorizontal_bias="0.033"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.333" />
+                app:layout_constraintVertical_bias="0.157" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="182dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="4dp"
+                android:text="Donaciones de libros, papel, discos, cd´s y juguetes, instrumentos musicales, entre otros."
+                android:textColor="#070707"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.301" />
+
+            <Button
+                android:id="@+id/btninfo2"
+                android:layout_width="147dp"
+                android:layout_height="41dp"
+                android:layout_marginEnd="28dp"
+                android:text="ver mas info."
+                app:layout_constraintBottom_toTopOf="@+id/btnDonarL"
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Space
@@ -133,7 +169,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="209dp"
-            android:background="#4BDBB7" >
+            android:background="#4BDBB7">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -143,24 +179,24 @@
                     android:id="@+id/imageFilterView5"
                     android:layout_width="162dp"
                     android:layout_height="136dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.657"
+                    app:layout_constraintVertical_bias="0.616"
                     app:srcCompat="@mipmap/banco_de_ropa" />
 
                 <Button
                     android:id="@+id/btnDonarR"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Button"
+                    android:layout_width="148dp"
+                    android:layout_height="36dp"
+                    android:text="donar!"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.789"
+                    app:layout_constraintHorizontal_bias="0.857"
                     app:layout_constraintStart_toStartOf="@+id/imageFilterView5"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.788" />
+                    app:layout_constraintVertical_bias="0.907" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -171,8 +207,31 @@
                     android:textSize="24sp"
                     app:layout_constraintBottom_toTopOf="@+id/imageFilterView5"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.432"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.461" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="145dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="44dp"
+                    android:layout_marginEnd="28dp"
+                    android:text="Donaciones de ropa en un buen estado."
+                    android:textColor="#090909"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btninfo3"
+                    android:layout_width="151dp"
+                    android:layout_height="39dp"
+                    android:layout_marginEnd="28dp"
+                    android:text="ver mas info."
+                    app:layout_constraintBottom_toTopOf="@+id/btnDonarR"
+                    app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
     </LinearLayout>
@@ -181,14 +240,16 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="sans-serif-black"
         android:text="A qué fundacion quieres ayudar?"
         android:textColor="#0E0E0E"
         android:textColorHint="#0E0E0E"
         android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.357" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

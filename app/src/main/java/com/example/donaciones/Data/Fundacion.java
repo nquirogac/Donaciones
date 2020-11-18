@@ -10,8 +10,9 @@ public class Fundacion {
     private String contacto;
     private double longitud;
     private double latitud;
+    private String url;
 
-    public Fundacion(String nombre,String tipodonacion,String contacto,double longitud,double latitud) {
+    public Fundacion(String nombre,String tipodonacion,String contacto,double longitud,double latitud, String url) {
         this.nombre = nombre;
         this.tipodonacion = tipodonacion;
         //this.icono = icono;
@@ -19,6 +20,7 @@ public class Fundacion {
         this.contacto = contacto;
         this.longitud = longitud;
         this.latitud = latitud;
+        this.url = url;
     }
 
     public String getNombre() {
@@ -36,6 +38,39 @@ public class Fundacion {
     public void setTipodonacion(String tipodonacion) {
         this.tipodonacion = tipodonacion;
     }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Donacion getHistorialDon() {
+        return historialDon;
+    }
+
+    public void setHistorialDon(Donacion historialDon) {
+        this.historialDon = historialDon;
+    }
+
     /**
     public Image getIcono() {
         return icono;
@@ -53,6 +88,7 @@ public class Fundacion {
         this.historialDon = historialDon;
     }
 **/
+
     public String getContacto() {
         return contacto;
     }
