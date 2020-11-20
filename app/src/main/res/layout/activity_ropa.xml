@@ -35,7 +35,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
-            android:id="@+id/editTextTextMultiLine"
+            android:id="@+id/txtDetalles"
             android:layout_width="322dp"
             android:layout_height="64dp"
             android:layout_marginTop="132dp"
@@ -95,7 +95,7 @@
             android:text="Describa la cantidad de productos"
             android:textColor="#050505"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine"
+            app:layout_constraintBottom_toTopOf="@+id/txtDetalles"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.202"
             app:layout_constraintStart_toStartOf="parent" />
@@ -111,10 +111,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.183"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/editTextTextMultiLine" />
+            app:layout_constraintTop_toTopOf="@+id/txtDetalles" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnHacerDon"
             android:layout_width="277dp"
             android:layout_height="67dp"
             android:layout_marginBottom="16dp"

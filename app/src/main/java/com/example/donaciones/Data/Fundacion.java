@@ -2,7 +2,9 @@ package com.example.donaciones.Data;
 
 import android.media.Image;
 
-public class Fundacion {
+import java.io.Serializable;
+
+public class Fundacion implements Serializable {
     private String nombre;
     private String tipodonacion;
     //private Image icono;

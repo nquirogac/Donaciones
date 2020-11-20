@@ -61,7 +61,6 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         String email = emailEt.getText().toString().trim();
         String password = passEt.getText().toString().trim();
 
-        System.out.println(email+password);
         if(TextUtils.isEmpty(nombre)){
             Toast.makeText(this, "Ingrese su nombre", Toast.LENGTH_SHORT).show();
             return;
@@ -93,8 +92,8 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
                             map.put("email", email);
                             map.put("password", password);
-                            //map.put("nombre", nombre);
-                            //map.put("telefono", telefono);
+                            map.put("nombre", nombre);
+                            map.put("telefono", telefono);
 
                             String id = firebaseAuth.getCurrentUser().getUid();
                             mDatabase.child("Users").child("Donantes").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {

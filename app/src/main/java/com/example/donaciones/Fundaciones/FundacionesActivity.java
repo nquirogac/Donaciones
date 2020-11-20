@@ -20,9 +20,13 @@ public class FundacionesActivity extends AppCompatActivity {
     private  Button btnInfo1;
     private  Button btnInfo2;
     private  Button btnInfo3;
-    private Fundacion bancoDeAlimentos;
-    private Fundacion trilce;
-    private Fundacion minuto;
+
+    public static final Fundacion bancoDeAlimentos = new Fundacion("Banco de Alimentos", "Alimentos en buen estado",
+            "+(571) 244 0249\n" +"+(571) 404 9010", 4.620777, -74.089625, "https://www.bancodealimentos.org.co/" );
+    public static Fundacion trilce = new Fundacion("Fundación Trilce","Libros, papel, discos, cd´s y juguetes, instrumentos musicales, entre otros.",
+            "3162675691 ó 9216236", 4.703989, -74.056569, "https://www.fundaciontrilce.com/");
+    public static Fundacion minuto = new Fundacion("Fundación minuto de Dios", "Ropa en buen estado","01 8000 946 223",
+            4.702255, -74.090001,"https://www.minutodedios.org/programa/banco-de-ropa");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,19 +40,16 @@ public class FundacionesActivity extends AppCompatActivity {
         btnDonarR.setOnClickListener(this::irRopa);
         Button btnInfo1 = (Button)findViewById(R.id.btninfo1);
         btnInfo1.setOnClickListener(this::irAMasInfo);
-
-        Fundacion bancoDeAlimentos = new Fundacion("Banco de Alimentos", "Alimentos en buen estado",
-                "+(571) 244 0249\n" +"+(571) 404 9010", 4.620777, -74.089625, "https://www.bancodealimentos.org.co/" );
-        Fundacion trilce = new Fundacion("Fundación Trilce","Libros, papel, discos, cd´s y juguetes, instrumentos musicales, entre otros.",
-                "3162675691 ó 9216236", 4.703989, -74.056569, "https://www.fundaciontrilce.com/");
-        Fundacion minuto = new Fundacion("Fundación minuto de Dios", "Ropa en buen estado","01 8000 946 223",
-                4.702255, -74.090001,"https://www.minutodedios.org/programa/banco-de-ropa");
+        Button btnInfo2 = (Button)findViewById(R.id.btninfo2);
+        btnInfo2.setOnClickListener(this::irAMasInfo);
+        Button btnInfo3 = (Button)findViewById(R.id.btninfo3);
+        btnInfo3.setOnClickListener(this::irAMasInfo);
 
     }
 
     public void irBA(View view){
         Intent intent = new Intent(this, BancoAlimentosActivity.class);
-
+        intent.putExtra("fundacion", bancoDeAlimentos);
         startActivity(intent);
 
     }
@@ -66,7 +67,7 @@ public class FundacionesActivity extends AppCompatActivity {
         String url="";
         switch (view.getId()){
             case R.id.btninfo1:
-                url = bancoDeAlimentos.getUrl();
+                url =  bancoDeAlimentos.getUrl();
                 break;
             case R.id.btninfo2:
                 url = trilce.getUrl();
