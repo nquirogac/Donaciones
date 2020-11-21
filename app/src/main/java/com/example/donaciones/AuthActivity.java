@@ -18,8 +18,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.ls.LSOutput;
 
@@ -87,7 +91,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(AuthActivity.this,"Se ha registrado "+email+" correctamente", Toast.LENGTH_SHORT).show();
-
+                            //DATOS PARA LA BD
                             Map<String, Object> map = new HashMap<>();
 
                             map.put("email", email);
@@ -96,12 +100,14 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                             map.put("telefono", telefono);
 
                             String id = firebaseAuth.getCurrentUser().getUid();
+                            System.out.println("este es el id"+id);
+                            //CREAR EL USUARIO EN FIREBASE
                             mDatabase.child("Users").child("Donantes").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task2) {
                                     if(task2.isSuccessful()){
-                                        Intent intention = new Intent(getApplication(), HomeActivity.class);
-                                        startActivity(intention);finish();
+                                        irHomeDatos();
                                     }else{
                                         Toast.makeText(AuthActivity.this, "No se pudieron crear los datos correctamente", Toast.LENGTH_SHORT).show();
                                     }
@@ -116,10 +122,11 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         progressDialog.dismiss();
                     }
-                });
+         });
     }
 
     private void logear() {
+        String datos;
         String email2 = email2Et.getText().toString().trim();
         String password2 = pass2Et.getText().toString().trim();
 
@@ -139,14 +146,10 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        System.out.println("1111");
                         if(task.isSuccessful()){
                             Toast.makeText(AuthActivity.this,"Bienvenido: "+email2, Toast.LENGTH_SHORT).show();
-                            Intent intention = new Intent(getApplication(), HomeActivity.class);
 
-                            startActivity(intention);
-
-
+                            irHomeDatos();
                         }else{
                             if(task.getException() instanceof FirebaseAuthUserCollisionException){
                                 Toast.makeText(AuthActivity.this,"El usuario ya existe", Toast.LENGTH_SHORT).show();
@@ -158,7 +161,38 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
     }
+    public void irHomeDatos(){//OBTENER DATOS DE FIREBASE DEL USUARIO Y LLEVARLOS A HOME
+        final String[] val = new String[3];
+        DatabaseReference ref;
+        ref = FirebaseDatabase.getInstance().getReference();
 
+        String userID = firebaseAuth.getCurrentUser().getUid();
+
+        // Agregamos un listener a la referencia
+        ref.child("Users").child("Donantes").child(userID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String nombre = dataSnapshot.child("nombre").getValue(String.class);
+                    String email = dataSnapshot.child("email").getValue(String.class);
+                    String tel = dataSnapshot.child("telefono").getValue(String.class);
+                    System.out.println(nombre+tel+email);
+                    val[0] = nombre;
+                    val[1] = email;
+                    val[2] = tel;
+                    Intent intention = new Intent(getApplication(), HomeActivity.class);
+                    intention.putExtra("nombreUsuario",val[0].toString());
+                    intention.putExtra("emailUsuario",val[1].toString());
+                    intention.putExtra("telUsuario",val[2].toString());
+                    startActivity(intention);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("Fallo la lectura: " + databaseError.getCode());
+            }
+        });
+    }
     @Override
     public void onClick(View v) {
 

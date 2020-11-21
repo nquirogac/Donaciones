@@ -3,6 +3,8 @@ package com.example.donaciones;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -17,12 +19,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class HomeActivity extends AppCompatActivity {
-    public static String user="names";
+    private TextView txtusername;
+    private TextView txtuseremail;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -45,19 +49,33 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        TextView txtusername =(TextView)findViewById(R.id.txtusername);
+        TextView txtuseremail =(TextView)findViewById(R.id.textuseremail);
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+        String nombreUsuario = getIntent().getStringExtra("nombreUsuario");
+        String emailUsuario = getIntent().getStringExtra("emailUsuario");
+        String telUsuario = getIntent().getStringExtra("telUsuario");
+        txtuseremail.setText(emailUsuario);
+        txtusername.setText(nombreUsuario);
+
         return true;
+
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+
     }
 }
