@@ -24,4 +24,5 @@
         <item>Puedo llevar la donación</item>
         <item>No puedo llevar la donación</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>

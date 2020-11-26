@@ -176,7 +176,6 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                     String nombre = dataSnapshot.child("nombre").getValue(String.class);
                     String email = dataSnapshot.child("email").getValue(String.class);
                     String tel = dataSnapshot.child("telefono").getValue(String.class);
-                    System.out.println(nombre+tel+email);
                     val[0] = nombre;
                     val[1] = email;
                     val[2] = tel;

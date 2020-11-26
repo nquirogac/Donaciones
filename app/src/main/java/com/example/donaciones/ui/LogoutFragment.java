@@ -29,7 +29,9 @@ private Button btnlogout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Button btnlogout = this.btnlogout.findViewById(R.id.btnRegistro);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signOut();
+        //Button btnlogout = this.btnlogout.findViewById(R.id.btnRegistro);
         btnlogout.setOnClickListener(this::logout);
     }
 

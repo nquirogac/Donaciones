@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import com.example.donaciones.AuthActivity;
 import com.example.donaciones.Data.Donacion;
 import com.example.donaciones.Data.Fundacion;
+import com.example.donaciones.HomeActivity;
+import com.example.donaciones.MapsActivity;
 import com.example.donaciones.R;
 
 import java.text.SimpleDateFormat;
@@ -68,8 +71,9 @@ private Fundacion bancoDeAlimentos;
                     .setCancelable(false).setPositiveButton("Iniciar viaje", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Intent intention = new Intent(getApplication(), MapsActivity.class);
                             nuevaDon.setEstado("Finalizada");
+                            startActivity(intention);
                         }
                     }
             ).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
