@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
@@ -19,13 +20,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.donaciones.Data.Mapa;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +42,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.security.KeyPairGenerator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -47,10 +52,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private int MY_PERMISSIONS_REQUEST_READ_CONTACTS;
     private GoogleMap mMap;
+    private DatabaseReference reference;
     private FusedLocationProviderClient fusedLocationClient;
+    private Geocoder geocoder;
     DatabaseReference mDatabase;
     FirebaseAuth firebaseAuth;
     String userID;
+    private Marker marcador1;
+    private Marker marcador2;
+    LocationRequest locationRequest;
+    private Double latF;
+    private Double lonF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +75,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        reference = FirebaseDatabase.getInstance().getReference();
+        geocoder = new Geocoder(this);
+        locationRequest= LocationRequest.create();
+        locationRequest.setInterval(500);
+        locationRequest.setFastestInterval(500);
+        locationRequest.setPriority(locationRequest.PRIORITY_HIGH_ACCURACY);
         getLocation();
-
     }
 
     /**
@@ -76,19 +93,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mDatabase.child("Users").child("Donantes").child(userID).child("ubicacion").addValueEventListener(new ValueEventListener() {
+        latF = Double.parseDouble(String.valueOf(getIntent().getDoubleExtra("lat",0)));
+        lonF = Double.parseDouble(String.valueOf(getIntent().getDoubleExtra("lon",0)));
+
+        System.out.println(latF+"  "+lonF);
+        System.out.println("11111111");
+
+        reference.child("Users").child("Donantes").child(userID).child("ubicacion").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                System.out.println("222222");
+                if(marcador2!=null){
+                    marcador2.remove();
+                }
+                Double latitud = snapshot.child("latitud").getValue(Double.class);
+                Double longitud = snapshot.child("longitud").getValue(Double.class);
+                System.out.println("33333");
+                MarkerOptions markerOptions = new MarkerOptions();
+                System.out.println("4444444");
+                markerOptions.position(new LatLng(latitud,longitud));
+                System.out.println("55555");
+                MarkerOptions fundacion = new MarkerOptions();
+                fundacion.position(new LatLng(latF,lonF));
+                fundacion.getIcon();
+                fundacion.isVisible();
+                marcador1 = mMap.addMarker((markerOptions));
+                marcador2 = marcador1;
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                System.out.println("seraaaaa");
             }
         });
 
@@ -106,11 +146,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION},
                     MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-            System.out.println("Permisooo");
 
-        } else {
-            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-        }
+
+        } //else {
+            //ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+        //}
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
@@ -125,7 +165,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             System.out.println("LATITUUUD LONGITUD" + location.getLongitude() + location.getLongitude());
                             ref.child("Users").child("Donantes").child(userID).child("ubicacion").setValue(latlong);
-                            System.out.println("LO LOGROOOO");
+
                         } else {
                             System.out.println("Error al guardar ubicación");
                         }

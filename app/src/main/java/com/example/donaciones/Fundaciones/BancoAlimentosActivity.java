@@ -44,7 +44,8 @@ private Fundacion bancoDeAlimentos;
         txtDetalles = (EditText)findViewById(R.id.txtDetalles);
         Fundacion bancoDeAlimentos = (Fundacion) getIntent().getSerializableExtra("fundacion") ;
         btnHacerDon.setOnClickListener(this::validarDonacion);
-
+        bancoDeAlimentos.setLatitud(4.620777);
+        bancoDeAlimentos.setLongitud(-74.089625);
         ArrayAdapter<CharSequence> adp = ArrayAdapter.createFromResource(this,R.array.Transportes, R.layout.support_simple_spinner_dropdown_item);
         opTransporte.setAdapter(adp);
     }
@@ -73,6 +74,8 @@ private Fundacion bancoDeAlimentos;
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intention = new Intent(getApplication(), MapsActivity.class);
                             nuevaDon.setEstado("Finalizada");
+                            intention.putExtra("lat",4.620777);
+                            intention.putExtra("lon", -74.089625);
                             startActivity(intention);
                         }
                     }

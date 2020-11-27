@@ -22,7 +22,7 @@ public class FundacionesActivity extends AppCompatActivity {
     private  Button btnInfo3;
 
     public static final Fundacion bancoDeAlimentos = new Fundacion("Banco de Alimentos", "Alimentos en buen estado",
-            "+(571) 244 0249\n" +"+(571) 404 9010", 4.620777, -74.089625, "https://www.bancodealimentos.org.co/" );
+            "+(571) 244 0249\n" +"+(571) 404 9010", -74.089625, 4.620777, "https://www.bancodealimentos.org.co/" );
     public static Fundacion trilce = new Fundacion("Fundación Trilce","Libros, papel, discos, cd´s y juguetes, instrumentos musicales, entre otros.",
             "3162675691 ó 9216236", 4.703989, -74.056569, "https://www.fundaciontrilce.com/");
     public static Fundacion minuto = new Fundacion("Fundación minuto de Dios", "Ropa en buen estado","01 8000 946 223",
