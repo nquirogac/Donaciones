@@ -151,6 +151,7 @@ public class AceptarDonacionActivity extends AppCompatActivity implements OnMapR
                     p[2]= latF;
                     p[3]= lonF;
                     setearDatos(nombre,donacion,detalle,fecha,fundacion);
+                    //alvvvvv
 
                 }
             }
