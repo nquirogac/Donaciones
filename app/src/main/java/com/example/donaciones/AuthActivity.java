@@ -2,17 +2,27 @@ package com.example.donaciones;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Button;
 
 import com.google.android.gms.common.util.JsonUtils;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,12 +35,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import org.w3c.dom.ls.LSOutput;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
@@ -43,7 +52,10 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
     private Button btnlogin;
-
+    FusedLocationProviderClient fusedlocationclient;
+    //private FirebaseDatabase firebaseDatabase;
+    LocationRequest locationRequest;
+    private int MY_PERMISSIONS_REQUEST_READ_CONTACTS;
     DatabaseReference mDatabase;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +72,9 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog = new ProgressDialog(this);
         btnSignup.setOnClickListener(this::onClick);
         btnlogin.setOnClickListener(this::onClick);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+
 
     }
-
     private void registrarUsuario(){
         String nombre = nombreEt.getText().toString().trim();
         String telefono = telefonoEt.getText().toString().trim();
@@ -105,7 +116,6 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                             map.put("telefono", telefono);
 
                             String id = firebaseAuth.getCurrentUser().getUid();
-                            //verId();
                             System.out.println("este es el id"+id);
                             //CREAR EL USUARIO EN FIREBASE
                             mDatabase.child("Users").child("Donantes").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -130,7 +140,41 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                     }
          });
     }
-
+    public void getLocation(){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        fusedlocationclient = LocationServices.getFusedLocationProviderClient(this);
+        locationRequest = LocationRequest.create();
+        locationRequest.setInterval(1000);
+        locationRequest.setFastestInterval(500);
+        locationRequest.setPriority(100);
+        String userID = firebaseAuth.getCurrentUser().getUid();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(AuthActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+            ActivityCompat.requestPermissions(AuthActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+            return;
+        }
+        fusedlocationclient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        System.out.println(location);
+                        if (location != null) {
+                            Geocoder geocoder = new Geocoder(AuthActivity.this, Locale.getDefault());
+                            Map<String, Object> latlong = new HashMap<>();
+                            latlong.put("latitud", location.getLatitude());
+                            latlong.put("longitud", location.getLongitude());
+                            Log.e("Latitud: ", location.getLatitude() + "Longitud: " + location.getLongitude());
+                            System.out.println("LATITUUUD LONGITUD" + location.getLongitude() + location.getLongitude());
+                            mDatabase.child("Users").child("Donantes").child(userID).child("ubicacion").setValue(latlong);
+                        } else {
+                            System.out.println("Error al guardar ubicación");
+                        }
+                    }
+                });
+    }
     private void logear() {
         String datos;
         String email2 = email2Et.getText().toString().trim();
@@ -146,7 +190,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         }
         progressDialog.setMessage("Iniciando sesión...");
         progressDialog.show();
-        //verId();
+
         //logear usuario
         firebaseAuth.signInWithEmailAndPassword(email2,password2)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -190,6 +234,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                     intention.putExtra("emailUsuario",val[1].toString());
                     intention.putExtra("telUsuario",val[2].toString());
                     startActivity(intention);
+                    getLocation();
                 }
             }
             @Override
