@@ -3,7 +3,6 @@ package com.example.donaciones;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,6 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     private TextView txtusername;
     private TextView txtuseremail;
     private AppBarConfiguration mAppBarConfiguration;
+    private FloatingActionButton mensaje;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +29,9 @@ public class HomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        mensaje = (FloatingActionButton)findViewById(R.id.mensajes);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.mensajes);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

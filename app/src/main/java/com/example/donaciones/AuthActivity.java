@@ -13,6 +13,7 @@ import android.widget.Toast;
 import android.widget.Button;
 
 import com.google.android.gms.common.util.JsonUtils;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.w3c.dom.ls.LSOutput;
 
@@ -40,7 +43,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
     private Button btnlogin;
-    //private FirebaseDatabase firebaseDatabase;
+
     DatabaseReference mDatabase;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +61,9 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         btnSignup.setOnClickListener(this::onClick);
         btnlogin.setOnClickListener(this::onClick);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
     }
+
     private void registrarUsuario(){
         String nombre = nombreEt.getText().toString().trim();
         String telefono = telefonoEt.getText().toString().trim();
@@ -100,6 +105,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                             map.put("telefono", telefono);
 
                             String id = firebaseAuth.getCurrentUser().getUid();
+                            //verId();
                             System.out.println("este es el id"+id);
                             //CREAR EL USUARIO EN FIREBASE
                             mDatabase.child("Users").child("Donantes").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -140,7 +146,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         }
         progressDialog.setMessage("Iniciando sesión...");
         progressDialog.show();
-
+        //verId();
         //logear usuario
         firebaseAuth.signInWithEmailAndPassword(email2,password2)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

@@ -3,36 +3,33 @@ package com.example.donaciones.Data;
 import java.util.Date;
 
 public class Donacion {
-    private String tipoDonacion;
+
+    private String detalle;
+    private String donacion;
     private String fecha;
-    private String especificaciones;
-    private String transporte;
-    private String estado;
     private Fundacion fundacion;
+    private String nombre;
+    private String opTransporte;
 
-    public Donacion(String tipoDonacion, String fecha, String especificaciones, String transporte, String estado, Fundacion fundacion) {
-        this.tipoDonacion = tipoDonacion;
-        this.fecha = fecha;
-        this.especificaciones = especificaciones;
-        this.transporte = transporte;
-        this.estado = estado;
-        this.fundacion = fundacion;
+    public Donacion() {
+
     }
 
-    public Fundacion getFundacion() {
-        return fundacion;
+
+    public String getDetalle() {
+        return detalle;
     }
 
-    public void setFundacion(Fundacion fundacion) {
-        this.fundacion = fundacion;
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
     }
 
-    public String getTipoDonacion() {
-        return tipoDonacion;
+    public String getDonacion() {
+        return donacion;
     }
 
-    public void setTipoDonacion(String tipoDonacion) {
-        this.tipoDonacion = tipoDonacion;
+    public void setDonacion(String donacion) {
+        this.donacion = donacion;
     }
 
     public String getFecha() {
@@ -43,27 +40,27 @@ public class Donacion {
         this.fecha = fecha;
     }
 
-    public String getEspecificaciones() {
-        return especificaciones;
+    public Fundacion getFundacion() {
+        return fundacion;
     }
 
-    public void setEspecificaciones(String especificaciones) {
-        this.especificaciones = especificaciones;
+    public void setFundacion(Fundacion fundacion) {
+        this.fundacion = fundacion;
     }
 
-    public String getTransporte() {
-        return transporte;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTransporte(String transporte) {
-        this.transporte = transporte;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getOpTransporte() {
+        return opTransporte;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setOpTransporte(String opTransporte) {
+        this.opTransporte = opTransporte;
     }
 }

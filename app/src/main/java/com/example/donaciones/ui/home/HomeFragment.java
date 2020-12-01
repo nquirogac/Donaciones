@@ -1,4 +1,5 @@
 package com.example.donaciones.ui.home;
+import com.example.donaciones.DonarTiempoActivity;
 import com.example.donaciones.Fundaciones.FundacionesActivity;
 
 import android.content.Intent;
@@ -18,6 +19,7 @@ import com.example.donaciones.R;
 
 public class HomeFragment extends Fragment {
     private Button btnDonar;
+    private Button btnDonartiempo;
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -28,6 +30,8 @@ public class HomeFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.txtBienvenida);
         Button btnDonar = root.findViewById(R.id.btndonar);
         btnDonar.setOnClickListener(this::irAFundaciones);
+        Button btnDonartiempo = root.findViewById(R.id.btndonartiempo);
+        btnDonartiempo.setOnClickListener(this::donarTiempo);
         return root;
     }
     public void irAFundaciones(View v){
@@ -35,5 +39,10 @@ public class HomeFragment extends Fragment {
 
         startActivity(intent);
 
+    }
+    public void donarTiempo(View view){
+        Intent intent = new Intent(getActivity(), DonarTiempoActivity.class);
+
+        startActivity(intent);
     }
 }
