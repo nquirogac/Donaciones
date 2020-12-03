@@ -1,9 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".MensajesActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#814CE1">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_user"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_margin="5dp"
+
+                android:src="@mipmap/banco_de_alimentos"
+                android:tint="#673AB7"
+                app:civ_border_color="@color/purple_500"
+                app:civ_border_width="2dp" />
+
+
+            <TextView
+                android:id="@+id/tv_users"
+                android:layout_width="206dp"
+                android:layout_height="27dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="TextView"
+                android:textColor="#F4F1F1"
+                android:textSize="20sp" />
+
+            <ImageView
+
+                android:id="@+id/iconconectado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/conectado">
+
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/icondesconectado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/desconectado"
+                android:visibility="gone">
+
+            </ImageView>
+
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/appbar"
+        android:layout_above="@+id/relativMensajes"
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F6F3F3">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/relativMensajes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:padding="5dp">
+
+        <EditText
+            android:id="@+id/txt_mensaje"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:backgroundTint="#918A8A"
+            android:hint="Escribe un mensaje">
+
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/btnenviar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/enviar">
+
+        </ImageButton>
+    </RelativeLayout>
+</RelativeLayout>

@@ -2,13 +2,13 @@ package com.example.donaciones.Data;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,11 +21,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -34,6 +31,7 @@ public class AdapterUsuarios extends RecyclerView.Adapter<AdapterUsuarios.viewHo
         Context context;
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        SharedPreferences mpref;
     public AdapterUsuarios(List<Usuario> userlist, Context context) {
         this.userlist = userlist;
         this.context = context;
@@ -86,6 +84,8 @@ public class AdapterUsuarios extends RecyclerView.Adapter<AdapterUsuarios.viewHo
         holder.btnchat2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mpref = v.getContext().getSharedPreferences("usuario_sp",context.MODE_PRIVATE);
+                final SharedPreferences.Editor editor = mpref.edit();
                 final String idchat = "AbCdE200428";
                 Solicitudes sol = new Solicitudes("enviado","AbCdE200428");
                 if(user.getEmail().equals("bancodealimentos@gmail.com")||user.getEmail().equals("trilce@gmail.com")||user.getEmail().equals("minuto@gmail.com")){
@@ -93,11 +93,7 @@ public class AdapterUsuarios extends RecyclerView.Adapter<AdapterUsuarios.viewHo
                     ref.child("Users").child("Fundaciones").child(user.getUid()).child("chat").child(userss2.getId()).setValue(sol).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Intent intent = new Intent(v.getContext(), MensajesActivity.class);
-                            intent.putExtra("nombre", userss2.getNombre());
-                            intent.putExtra("idchat", idchat);
-                            intent.putExtra("iduser", userss2.getId());
-                            v.getContext().startActivity(intent);
+
                         }
                     });
 
@@ -126,7 +122,14 @@ public class AdapterUsuarios extends RecyclerView.Adapter<AdapterUsuarios.viewHo
                         }
                     });}
 
+                Intent intent = new Intent(v.getContext(), MensajesActivity.class);
+                intent.putExtra("nombre", userss2.getNombre());
+                intent.putExtra("idchat", idchat);
+                intent.putExtra("iduser", userss2.getId());
+                editor.putString("usuario_sp",userss2.getId());
+                editor.apply();
 
+                v.getContext().startActivity(intent);
             }
 
 
@@ -152,10 +155,10 @@ public class AdapterUsuarios extends RecyclerView.Adapter<AdapterUsuarios.viewHo
             super(itemView);
             tv_usuario = itemView.findViewById(R.id.tv_user);
             tv_usuario2 = itemView.findViewById(R.id.tv_user2);
-            tv_usuario3 = itemView.findViewById(R.id.tv_user3);
+            tv_usuario3 = itemView.findViewById(R.id.tv_users);
             imguser = itemView.findViewById(R.id.imagenUser);
             imguser2 = itemView.findViewById(R.id.imagenUser2);
-            imguser3 = itemView.findViewById(R.id.imagenUser3);
+            imguser3 = itemView.findViewById(R.id.img_user);
             cardView = itemView.findViewById(R.id.cardview);
             cardView2 = itemView.findViewById(R.id.cardview2);
             cardView3 = itemView.findViewById(R.id.cardview3);
