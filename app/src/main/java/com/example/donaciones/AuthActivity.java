@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Button;
 
+import com.example.donaciones.Data.Usuario;
 import com.google.android.gms.common.util.JsonUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -29,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,12 +53,14 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     private EditText pass2Et;
     private ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Button btnlogin;
     FusedLocationProviderClient fusedlocationclient;
     //private FirebaseDatabase firebaseDatabase;
     LocationRequest locationRequest;
     private int MY_PERMISSIONS_REQUEST_READ_CONTACTS;
     DatabaseReference mDatabase;
+    FirebaseDatabase database;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
@@ -72,7 +76,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog = new ProgressDialog(this);
         btnSignup.setOnClickListener(this::onClick);
         btnlogin.setOnClickListener(this::onClick);
-
+        database = FirebaseDatabase.getInstance();
 
     }
     private void registrarUsuario(){
@@ -80,7 +84,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         String telefono = telefonoEt.getText().toString().trim();
         String email = emailEt.getText().toString().trim();
         String password = passEt.getText().toString().trim();
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         if(TextUtils.isEmpty(nombre)){
             Toast.makeText(this, "Ingrese su nombre", Toast.LENGTH_SHORT).show();
             return;
@@ -114,21 +118,36 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                             map.put("password", password);
                             map.put("nombre", nombre);
                             map.put("telefono", telefono);
+                            map.put("id", firebaseAuth.getCurrentUser().getUid());
+                            Usuario uu = new Usuario(nombre,email,password,telefono,firebaseAuth.getCurrentUser().getUid());
 
                             String id = firebaseAuth.getCurrentUser().getUid();
                             System.out.println("este es el id"+id);
                             //CREAR EL USUARIO EN FIREBASE
-                            mDatabase.child("Users").child("Donantes").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task2) {
-                                    if(task2.isSuccessful()){
-                                        irHomeDatos();
-                                    }else{
-                                        Toast.makeText(AuthActivity.this, "No se pudieron crear los datos correctamente", Toast.LENGTH_SHORT).show();
+                            if(email.equals("bancodealimentos@gmail.com")||email.equals("trilce@gmail.com")||email.equals("minuto@gmail.com")){
+                                mDatabase.child("Users").child("Fundaciones").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task2) {
+                                        if (task2.isSuccessful()) {
+                                            irHomeDatos();
+                                        } else {
+                                            Toast.makeText(AuthActivity.this, "No se pudieron crear los datos correctamente", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }else {
+                                mDatabase.child("Users").child("Donantes").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task2) {
+                                        if (task2.isSuccessful()) {
+                                            irHomeDatos();
+                                        } else {
+                                            Toast.makeText(AuthActivity.this, "No se pudieron crear los datos correctamente", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
                         }else{
                             if(task.getException() instanceof FirebaseAuthUserCollisionException){
                                 Toast.makeText(AuthActivity.this,"El usuario ya existe", Toast.LENGTH_SHORT).show();
@@ -176,7 +195,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
     private void logear() {
-        String datos;
+
         String email2 = email2Et.getText().toString().trim();
         String password2 = pass2Et.getText().toString().trim();
 
@@ -192,6 +211,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog.show();
 
         //logear usuario
+
         firebaseAuth.signInWithEmailAndPassword(email2,password2)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -199,7 +219,8 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                         if(task.isSuccessful()){
                             Toast.makeText(AuthActivity.this,"Bienvenido: "+email2, Toast.LENGTH_SHORT).show();
 
-                            irHomeDatos();
+                                irHomeDatos();
+
                         }else{
                             if(task.getException() instanceof FirebaseAuthUserCollisionException){
                                 Toast.makeText(AuthActivity.this,"El usuario ya existe", Toast.LENGTH_SHORT).show();
@@ -217,32 +238,64 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         ref = FirebaseDatabase.getInstance().getReference();
 
         String userID = firebaseAuth.getCurrentUser().getUid();
+        if(user.getEmail().equals("bancodealimentos@gmail.com")
+                ||user.getEmail().equals("trilce@gmail.com")||
+                user.getEmail().equals("minuto@gmail.com")) {
+            ref.child("Users").child("Fundaciones").child(userID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String nombre = dataSnapshot.child("nombre").getValue(String.class);
+                        String email = dataSnapshot.child("email").getValue(String.class);
+                        String tel = dataSnapshot.child("telefono").getValue(String.class);
+                        val[0] = nombre;
+                        val[1] = email;
+                        val[2] = tel;
 
-        // Agregamos un listener a la referencia
-        ref.child("Users").child("Donantes").child(userID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    String nombre = dataSnapshot.child("nombre").getValue(String.class);
-                    String email = dataSnapshot.child("email").getValue(String.class);
-                    String tel = dataSnapshot.child("telefono").getValue(String.class);
-                    val[0] = nombre;
-                    val[1] = email;
-                    val[2] = tel;
-                    Intent intention = new Intent(getApplication(), HomeActivity.class);
-                    intention.putExtra("nombreUsuario",val[0].toString());
-                    intention.putExtra("emailUsuario",val[1].toString());
-                    intention.putExtra("telUsuario",val[2].toString());
-                    startActivity(intention);
-                    getLocation();
+                        Intent intention = new Intent(getApplication(), HomeActivity.class);
+                        intention.putExtra("nombreUsuario", val[0].toString());
+                        intention.putExtra("emailUsuario", val[1].toString());
+                        intention.putExtra("telUsuario", val[2].toString());
+                        startActivity(intention);
+                    }
                 }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("Fallo la lectura: " + databaseError.getCode());
-            }
-        });
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("Fallo la lectura: " + databaseError.getCode());
+                }
+            });
+
+            // Agregamos un listener a la referencia
+        }else{
+            ref.child("Users").child("Donantes").child(userID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        String nombre = dataSnapshot.child("nombre").getValue(String.class);
+                        String email = dataSnapshot.child("email").getValue(String.class);
+                        String tel = dataSnapshot.child("telefono").getValue(String.class);
+                        val[0] = nombre;
+                        val[1] = email;
+                        val[2] = tel;
+                        getLocation();
+                        Intent intention = new Intent(getApplication(), HomeActivity.class);
+                        intention.putExtra("nombreUsuario",val[0].toString());
+                        intention.putExtra("emailUsuario",val[1].toString());
+                        intention.putExtra("telUsuario",val[2].toString());
+                        startActivity(intention);
+
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("Fallo la lectura: " + databaseError.getCode());
+                }
+            });
+        }
     }
+
+
     @Override
     public void onClick(View v) {
 

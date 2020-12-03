@@ -31,11 +31,10 @@ private Button btnlogout;
         super.onCreate(savedInstanceState);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signOut();
-        //Button btnlogout = this.btnlogout.findViewById(R.id.btnRegistro);
-        btnlogout.setOnClickListener(this::logout);
+        logout();
     }
 
-    public void logout(View v){
+    public void logout(){
         Intent salir = new Intent(getActivity(), AuthActivity.class);
 
         startActivity(salir);
