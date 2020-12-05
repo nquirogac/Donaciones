@@ -1,4 +1,4 @@
-package com.example.donaciones.ui.gallery;
+package com.example.donaciones.ui.Historial;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.donaciones.R;
 
-public class GalleryFragment extends Fragment {
+public class HistorialFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private HistorialViewModel slideshowViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        slideshowViewModel =
+                new ViewModelProvider(this).get(HistorialViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_historial, container, false);
+        final TextView textView = root.findViewById(R.id.text_slideshow);
+        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

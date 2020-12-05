@@ -1,4 +1,4 @@
-package com.example.donaciones.Data;
+package com.example.donaciones.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.donaciones.Data.Solicitudes;
+import com.example.donaciones.Data.Usuario;
 import com.example.donaciones.MensajesActivity;
 import com.example.donaciones.R;
 import com.google.android.gms.tasks.OnCompleteListener;
