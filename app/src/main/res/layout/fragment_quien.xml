@@ -15,4 +15,95 @@
         android:src="@mipmap/logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿QUIÉNES SOMOS?"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Somos Natalia Quiroga, Kevin Rincón y Veronica Vergara, estudiantes de ingeniería de sistemas y computación, y esta es la App Donaciones." />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="13dp" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Motivación"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="La idea surgió de la necesidad de aprovechar los recursos que a veces muchas personas quizás ya no usan, como por ejemplo en muchos restaurantes donde se desperdicia la comida, ya que no la usan para el siguiente día y estas podrían ser de provecho para otras personas; o también cuando se trata de libros, pues hay quienes tengan y ya no los usen, pero podrían serles útiles a otras personas que tal vez no tengan los recursos para adquirirlos; y están los casos donde también la ropa ya no es usada, quizás porque ya no le queda o simplemente ya no le gusta, pues hay otros a los que les podría ser útil. Pero, además existen casos en los que quienes desean donar no tengan la forma o la posibilidad de movilizarse hacia el lugar donde se quiere llevar la donación." />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Solución"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Teniendo en cuenta esto, se creó la App Donaciones, mediante la cual como su nombre lo indica, se permite hacer donaciones a fundaciones, esto en la primera opción llamada Donación en Especie, y tendrás tres opciones para elegir: " />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="-La primera, que es el Banco De Alimentos Bogotá, donde se aceptan donaciones de alimentos." />
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="-La segunda, que es la Fundación Trilce, donde se podrán realizar donaciones de libros, papel, juguetes, entre otros." />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="-La tercera, que es el Banco De Ropa Minuto De Dios, aquí se pueden hacer donaciones de ropa, como su nombre lo indica y claro, que se encuentren en buen estado. " />
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Y como solución al problema que se le presenta a algunos usuarios, que es el no poder llevar la donación al lugar establecido; se tiene la segunda opción, denominada Donar Mi Tiempo Y Transporte, donde aquellas personas que quizás posean un vehículo y tengan la posibilidad de movilizarse a los lugares donde se encuentran quienes quieran donar y no puedan, pues luego de registrarse aquí, podrán colaborar yendo a buscar lo que se va a donar y llevarlo al lugar donde se hará la donación. " />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
